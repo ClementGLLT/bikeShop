@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Joan&family=Montserrat:ital,wght@1,800&family=Open+Sans:wght@300;400;700&family=Press+Start+2P&family=Ubuntu+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img class="Logo" src="/images/bike-logo.svg" alt="" width="56" height="auto" class="d-inline-block align-text-top">
+        Bike shop
+      </a>
+    </div>
+  </nav>
+
+    <div id="heroHeader">
+      <h2 class="baseline">
+        The bike<br>shop experience
+      </h2>
+
+    </div>
+
+    <div class="container">
+
+    
+        <div class="row">
+         
+           <div class="col-12 displayFlexWrap">
+             
+
+            <% for (let i=0; i<dataBike.length;i++) {%>
+
+            <div class="col-12 col-md-6 col-lg-4 bikecontainer">
+              <div class="card col-12" style="width: auto;">
+                  <img src= <%=dataBike[i].url%> class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title borderTop"><%= dataBike[i].name %></h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                  <div class="card-body2">
+                    <p class="price"> <%=dataBike[i].price%> €</p>
+                    <a href="/shop?bikeNameFromFront=<%= dataBike[i].name%>&bikePriceFromFront=<%= dataBike[i].price%>&bikeImageFromFront=<%= dataBike[i].url%>" class="btn btn-outline-primary">Buy</a>
+                  </div>
+              </div>
+          </div><%}%>
+
+              
+
+           
+           </div>
+        
+        </div>
+        
+        </div>
+
+
+    
+</body>
+</html>

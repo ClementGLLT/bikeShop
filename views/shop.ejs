@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Joan&family=Montserrat:ital,wght@1,800&family=Open+Sans:wght@300;400;700&family=Press+Start+2P&family=Ubuntu+Mono:ital,wght@1,700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/85a8c2f0e9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="http://localhost:3000/home">
+            <img class="Logo" src="/images/bike-logo.svg" alt="" width="56" height="auto" class="d-inline-block align-text-top">
+            Bike shop
+          </a>
+        </div>
+      </nav>
+
+<div class="space"></div>
+
+<div class="container">
+ 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html" class="filAriane">Shop</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Basket</li>
+        </ol>
+      </nav>
+          
+      <%if(dataCardBike.length>0){%>
+        <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Picture</th>
+      <th scope="col">Model</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Total</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let i=0; i<dataCardBike.length; i++) { %>
+    <tr>
+      <th scope="row">
+        
+          <%=i + 1%>
+
+      </th>
+      <td><img class="imgPanier"  src=<%= dataCardBike[i].url %> alt=""></td>
+      <td><%=dataCardBike[i].name%></td>
+      <td>
+          <div class="input-group input-group-sm mb-3">
+            <form action="/update-shop" method="post">
+              <input type="hidden" name="position" value="<%= i%>">
+              <input type="text" name= "quantity" class="form-control" value="<%= dataCardBike[i].quantity%>" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              <button type="submit" class="btn btn-outline-secondary"><i class="fa-solid fa-arrows-rotate"></i></button>
+            </form>
+          </div>
+       
+      </div></td>
+      <td><%=dataCardBike[i].price%> €</td>
+      <td><%=dataCardBike[i].price*dataCardBike[i].quantity%> €</td>
+      <td>
+        <a href="/delete-shop?position=<%=i%>"><button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-trash-can"></i></button></a>
+        
+      </td>
+    </tr>
+  <%}%>
+  <tr>
+    <th scope="row"></th>
+    <td>
+    <td></td>
+    <td>
+    
+    </td>
+    <td>Total de votre commande :</td>
+    <td> 
+     
+      <% 
+      var totalCmd = 0;
+      
+      function majcompteur() {
+      
+        for (var i=0; i<dataCardBike.length; i++){
+          totalCmd = dataCardBike[i].price * dataCardBike[i].quantity + totalCmd;
+        }
+      
+      } 
+      
+      majcompteur(); %>
+
+
+<%= totalCmd %>€
+    </td>
+
+
+    <td>
+      <form  action="/create-checkout-session" method="POST">
+        <% for(var i=0; i<dataCardBike.length ; i++){%>
+          <input type="text" name= "quantity" value="<%= dataCardBike[i].quantity%>">
+        <input type="text" name= "name" value="<%= dataCardBike[i].name%>">
+        <input type="text" name= "name" value="<%= dataCardBike[i].price%>">
+
+        <%}%>
+        
+        <button class="btn-primary" type="submit">Checkout</button>
+       </form>
+      
+     
+
+    </td>
+  </tr>
+
+    
+  </tbody>
+</table>
+<%} else {%>
+
+<p class="erreur">Le panier est vide !</p> <%}%>
+
+
+       
+       </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
